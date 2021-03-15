@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A basic implementation of a standard-ish microwave." />
+    <title>Microwave</title>
+    <!-- scripts for browsers that support ES modules -->
+    <script type="module" src="https://unpkg.com/kickstand-ui/dist/kickstand-ui/kickstand-ui.esm.js"></script>
+    <!-- scripts for browsers that do not support ES modules (legacy browsers) -->
+    <script nomodule src="https://unpkg.com/kickstand-ui/dist/kickstand-ui/kickstand-ui.js"></script>
+</head>
+
+<body class="">
+    <noscript class="text-md">
+        Sorry, you must enable JavaScript in order to use this application.
+    </noscript>
+
+    <div class="w-content mx-auto p-xxl">
+        <h1 class="text-center">Welcome to the Mighty Microwave!</h1>
+
+        <p>Feel free to use the key pad to type in the desired time and click <ks-badge color="light"
+                class="text-sm br-sm">Start</ks-badge> to start the microwave or
+            use one of the Presets to quickly handle those repetitive or hard-to-remember tasks.</p>
+
+        <h2>Setting Presets</h2>
+
+        <p>To program a preset all you have to do is:
+        <ol>
+            <li>Push the <ks-badge color="light" class="text-sm br-sm">Set Presets</ks-badge> switch at the bottom of
+                the microwave to put the microwave
+                in "program" mode</li>
+            <li>Push the button you wish to program</li>
+            <li>Fill out the form with the name you wish to display on the button and the preset time</li>
+            <li>Push the <ks-badge color="light" class="text-sm br-sm">Set Presets</ks-badge> switch again to resume
+                normal functionality</li>
+        </ol>
+        </p>
+    </div>
+
+    <div class="mx-auto sm:hide">
+        <div class="microwave">
+            <div class="door">
+                <div class="glass"></div>
+            </div>
+            <div class="control-panel">
+                <div class="display text-monospace"></div>
+                <div class="key-pad">
+                    <ks-button class="digit" display="hollow" color="light" size="lg">1</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">2</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">3</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">4</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">5</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">6</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">7</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">8</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">9</ks-button>
+                    <ks-button class="digit" display="hollow" color="light" size="lg">0</ks-button>
+                </div>
+                <div class="controls">
+                    <ks-button display="hollow" color="light" size="lg" class="start-button w-100">Start</ks-button>
+                    <div class="display-flex space-between mt-lg">
+                        <ks-button color="light" display="hollow" size="md" class="stop-clear">Stop/Clear</ks-button>
+                        <ks-button color="light" display="hollow" size="md" class="add-30 h-100" button-class="h-100">
+                            +30</ks-button>
+                    </div>
+                </div>
+                <h2 class="text-center text-white text-lg mb-none">Presets</h2>
+                <div class="preset-controls">
+                </div>
+                <ks-switch class="px-xl mb-xl w-100 space-between text-light set-presets" label="Set Presets">
+                </ks-switch>
+            </div>
+        </div>
+        <ks-alert class="sr-only screen-reader-message">The microwave is <span class="state">ready</span>.</ks-alert>
+    </div>
+    <ks-alert color="danger" class="hide text-md m-xxl sm:display-block">
+        This app is optimized for a larger viewport. Please maximize your window or open the application on your
+        desktop.
+    </ks-alert>
+    <ks-modal id="preset_modal" modal-title="Update Preset" size="md">
+        <ks-form id="preset_form">
+            <ks-form-field id="preset_text" label="Preset Label" maxlength="7" help-text="Max of 7 characters" required>
+            </ks-form-field>
+            <ks-form-field id="preset_time" label="Preset Time" type="number" min="1" max="9999"
+                help-text="Must be between 1 and 9999" required></ks-form-field>
+            <ks-button type="submit">Save</ks-button>
+        </ks-form>
+    </ks-modal>
+    <script type="module" src="/main.ts"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+@import 'variables';
+@import '../node_modules/kickstand-ui/src/scss/styles.scss';
+
+%border {
+    border: color-value(dark) solid 5rem;
+    border-image: linear-gradient(to right, color-value(dark), color-value(light, darker), color-value(dark));
+    border-image-slice: 1;
+}
+
+.microwave {
+    display: flex;
+    background-color: black;
+    @include font(monospace);
+
+    .door {
+        background-color: white;
+        width: 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        @extend %border;
+
+        &.running {
+            .glass {
+                @include bg-color(warning, lighter, 0.5);
+            }
+        }
+
+        .glass {
+            background-image: radial-gradient(black 20%, transparent 20%), radial-gradient(black 20%, transparent 20%);
+            background-position: 0 0, 5px 5px;
+            background-size: 10px 10px;
+            background-color: black;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .control-panel {
+        flex: 0 0 400px;
+        @extend %border;
+        @include ml(sm);
+
+        .display {
+            text-align: center;
+            @include font-size(xxxl);
+            @include color(light, lighter);
+        }
+
+        .key-pad {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            @include px(xxl);
+
+            .ks-button {
+                @include m(xs);
+            }
+        }
+
+        .controls {
+            @include p(xl);
+        }
+
+        .preset-controls {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            @include p(xl);
+            @include pt(sm);
+            @include m(-xs);
+            @include font-size(xs);
+
+            .preset-control {
+                width: 46%;
+                @include m(xs);
+            }
+        }
+    }
+}
