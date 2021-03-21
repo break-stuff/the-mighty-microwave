@@ -74,9 +74,9 @@ class MicrowaveUi {
             } else if (microwave.state === microwave.states.programming) {
                 presets.selectedPresetIndex = parseInt(this.dataset.index);
                 let preset = presets.options[presets.selectedPresetIndex];
-                ($('#preset_text') as any).value = preset.name;
-                ($('#preset_time') as any).value = preset.time;
-                ($('#preset_modal') as any).show();
+                $<HTMLKsFormFieldElement>('#preset_text').value = preset.name;
+                $<HTMLKsFormFieldElement>('#preset_time').value = preset.time;
+                $<HTMLKsModalElement>('#preset_modal').show();
             }
         }));
     }
@@ -101,7 +101,7 @@ class MicrowaveUi {
     }
 
     controlPanelButtonClickHandler() {
-        $$('.control-panel ks-button').forEach(x => x.on('click', () => playSound('newBeep')));
+        $$<HTMLKsButtonElement>('.control-panel ks-button').on('click', () => playSound('newBeep'));
     }
 
     startButtonClickHandler() {
@@ -144,30 +144,30 @@ class MicrowaveUi {
 
     setPresetsUpdateHandler() {
         $('.set-presets').on('updated', (e) => {
-            const $buttons = $$('.control-panel ks-button');
+            const $buttons = $$<HTMLKsButtonElement>('.control-panel ks-button');
 
             if (e.detail.value) {
                 microwave.state = microwave.states.programming;
                 this.updateUiState();
-                $buttons.forEach((x: any) => x.disabled = true);
-                $$('.preset-control').forEach((x: any) => x.disabled = false);
+                $buttons.forEach(x => x.disabled = true);
+                $$<HTMLKsButtonElement>('.preset-control').forEach(x => x.disabled = false);
             } else {
                 microwave.state = microwave.states.ready;
                 this.updateUiState();
-                $buttons.forEach((x: any) => x.disabled = false);
+                $buttons.forEach(x => x.disabled = false);
             }
         });
     }
 
     presetFormSubmitHandler() {
-        $('#preset_form').on('submitted', (e) => {
+        $<HTMLKsFormElement>('#preset_form').on('submitted', (e) => {
             if (!e.detail.isValid)
                 return;
         
             const formData = e.detail.formFieldData;
             presets.updatePreset(presets.selectedPresetIndex, formData[0].value, formData[1].value);
             this.displayPresets();
-            ($('#preset_modal') as any).hide();
+            $<HTMLKsModalElement>('#preset_modal').hide();
         });        
     }
 }

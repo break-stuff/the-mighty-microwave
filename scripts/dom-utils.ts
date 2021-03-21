@@ -1,16 +1,25 @@
-interface ICustomHTMLElement extends HTMLElement {
-    on(event: string, callback: Function): ICustomHTMLElement;
+declare global {
+    interface HTMLElement {
+        on(event: string, callback: Function): void;
+    }
+
+    interface Array<T extends HTMLElement> {
+        on(event: string, callback: Function): void;
+    }
 }
 
-export function $(selector: string): ICustomHTMLElement {
-    return document.querySelector(selector);
+export function $<T extends HTMLElement>(selector: string): T {
+    return (document.querySelector(selector) as any) as T;
 }
 
-export function $$(selector: string): ICustomHTMLElement[] {
-    return Array.from(document.querySelectorAll(selector));
+export function $$<T extends HTMLElement>(selector: string): T[] {
+    return Array.from(document.querySelectorAll(selector) as any) as T[];
 }
 
-(HTMLElement as any).prototype.on = function (event: string, callback: Function): ICustomHTMLElement {
+HTMLElement.prototype.on = function (event: string, callback: Function) {
     this.addEventListener(event, callback);
-    return this as ICustomHTMLElement;
+};
+
+Array.prototype.on = function (event: string, callback: Function) {
+    this.forEach(element => element.addEventListener(event, callback));
 };
